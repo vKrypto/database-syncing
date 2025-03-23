@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  sqlserver1:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver1
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "ashutosh#12345"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./sqlserver1_data:/var/opt/mssql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    restart: always
+
+  sqlserver2:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver2
+    ports:
+      - "1434:1433"
+    environment:
+      SA_PASSWORD: "ashutosh#12345"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./sqlserver2_data:/var/opt/mssql
+    restart: always
